@@ -1,10 +1,8 @@
-// yet to implement final logic .... work in progress
 
 
-
-let num=153;
+let num=154;
 let temp=0;
-
+let abc=num;
 
 while(num>0){
    let lastdigit= num%10; 
@@ -14,6 +12,5 @@ while(num>0){
  num=Math.floor(num/10);  
 }
 
-console.log(temp === num ? "Armstrong" : "Not Armstrong")
+console.log(temp === abc ? "Armstrong" : "Not Armstrong")
 
- //let var const
