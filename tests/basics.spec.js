@@ -67,7 +67,7 @@ await dropDown.selectOption("az");
 })
 
 
-test.only("File upload for heruko application ", async ({page})=>{
+test("File upload for heruko application ", async ({page})=>{
 
     await page.goto("https://the-internet.herokuapp.com/upload");
     await page.locator("//input[@id='file-upload']").setInputFiles("C:\\Users\\Sandeep\\Desktop\\sample.txt");
@@ -76,4 +76,12 @@ test.only("File upload for heruko application ", async ({page})=>{
     await expect(page.locator("//h3")).toHaveText("ile Uploaded!");
 
 
+})
+
+test("Visual testing for instagram", async ({page})=>{
+
+
+    await page.goto("https://www.instagram.com/");
+    await page.waitForTimeout(5000);
+    expect(await page.screenshot()).toMatchSnapshot("insta.png")
 })

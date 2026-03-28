@@ -17,3 +17,12 @@ test('get started link', async ({ page }) => {
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 });
+
+
+test.only("Visual testing for instagram", async ({page})=>{
+
+
+    await page.goto("https://www.saucedemo.com/");
+    await page.waitForTimeout(5000);
+    expect(await page.screenshot()).toMatchSnapshot("sauce.png")
+})
