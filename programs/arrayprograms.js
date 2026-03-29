@@ -2,6 +2,10 @@ let marks=[90,95,85,98,90,70]
 console.log("before using push method")
 console.log(marks)
 
+// index
+
+console.log(marks[5])
+
 
 marks.push(100)
 console.log("after using push method")

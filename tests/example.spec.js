@@ -19,7 +19,7 @@ test('get started link', async ({ page }) => {
 });
 
 
-test.only("Visual testing for instagram", async ({page})=>{
+test("Visual testing for instagram", async ({page})=>{
 
 
     await page.goto("https://www.saucedemo.com/");
