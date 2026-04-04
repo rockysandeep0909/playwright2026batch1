@@ -73,7 +73,7 @@ test("File upload for heruko application ", async ({page})=>{
     await page.locator("//input[@id='file-upload']").setInputFiles("C:\\Users\\Sandeep\\Desktop\\sample.txt");
     await page.locator("//input[@id='file-submit']").click();
     await page.waitForTimeout(5000);
-    await expect(page.locator("//h3")).toHaveText("ile Uploaded!");
+    await expect(page.locator("//h3")).toHaveText("File Uploaded!");
 
 
 })
@@ -107,7 +107,7 @@ test('Verify products count', async ({ page }) => {
 });
 
 
-test.only('Soft assertion example', async ({ page }) => {
+test('Soft assertion example', async ({ page }) => {
  await page.goto('https://www.saucedemo.com/');
 
  await expect.soft(page).toHaveTitle('Swag Labs');
@@ -117,3 +117,80 @@ test.only('Soft assertion example', async ({ page }) => {
  console.log('Soft assertions completed');
 });
 
+// launch sauce demo using browser fixture
+
+test("launch using browser fixtures", async ({browser})=>{
+
+   let context=await browser.newContext();
+   let page= await context.newPage();
+   await page.goto("https://www.instagram.com")
+   await page.waitForTimeout(5000);
+
+
+})
+
+
+// to handle table using playwright 
+
+test("handling tables using playwright", async ({page})=>{
+ 
+ await page.goto("https://demo.guru99.com/test/web-table-element.php");
+ let rows=await page.locator("//tbody/tr").count();
+ console.log("row count is " + rows)
+
+ for(let i=1;i<rows;i++){
+   ////tbody/tr[i]/td[5].textContent
+   let companyName= await page.locator("//tbody/tr["+i+"]/td[1]").textContent();
+   let currentPrice=await page.locator("//tbody/tr["+i+"]/td[4]").textContent();
+   let percentageChange=await page.locator("//tbody/tr["+i+"]/td[5]").textContent();
+
+   console.log("Company name :" +companyName + "Current Price :"+ currentPrice +"Percetnage change :" +percentageChange);
+ }
+
+
+})
+
+
+// test to handle javascripts 
+
+test("Handle JS alert", async ({page})=>{
+    await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
+    
+    
+
+    page.on('dialog', async dialog=>{
+        console.log(dialog.message())
+        await dialog.accept();
+    })
+   await page.locator("//button[text()='Click for JS Alert']").click();
+})
+
+// test to handle js confirm alert in playwright 
+
+test("Handle JS confirm alert", async ({page})=>{
+    await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
+    
+    
+
+    page.on('dialog', async dialog=>{
+        console.log(dialog.message())
+        await dialog.dismiss();
+    })
+   await page.locator("//button[text()='Click for JS Confirm']").click();
+   await page.waitForTimeout(5000);
+})
+
+
+// test to handle js prompt alert in playwright
+test.only("Handle JS prompt alert", async ({page})=>{
+    await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
+    
+    
+
+    page.on('dialog', async dialog=>{
+        console.log(dialog.message())
+        await dialog.accept("Sandeep is entering something")
+    })
+   await page.locator("//button[text()='Click for JS Prompt']").click();
+   await page.waitForTimeout(5000);
+})
