@@ -88,15 +88,15 @@ test("Visual testing for instagram", async ({page})=>{
 
 test('Verify error message text', async ({ page }) => {
  await page.goto('https://www.saucedemo.com/');
- await page.locator('#user-name').fill('standard_user');
+ await page.locator('#user-name').fill('standard_user'); // id attribute
  await page.locator('#password').fill('wrong_password');
- await page.locator('#login-button').click();
+ await page.locator('.submit-button').click(); // class attribute
 
  await expect(page.locator('[data-test="error"]'))
    .toContainText('Username and password do not match');
 });
 
-
+// product count and css usage in script
 test('Verify products count', async ({ page }) => {
  await page.goto('https://www.saucedemo.com/');
  await page.locator('#user-name').fill('standard_user');
@@ -182,7 +182,7 @@ test("Handle JS confirm alert", async ({page})=>{
 
 
 // test to handle js prompt alert in playwright
-test.only("Handle JS prompt alert", async ({page})=>{
+test("Handle JS prompt alert", async ({page})=>{
     await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
     
     
@@ -193,4 +193,42 @@ test.only("Handle JS prompt alert", async ({page})=>{
     })
    await page.locator("//button[text()='Click for JS Prompt']").click();
    await page.waitForTimeout(5000);
+})
+
+
+// inbuild playwright locators for https://www.testmuai.com/selenium-playground/simple-form-demo/
+
+test("Handle simple form demo", async ({page})=>{
+    await page.goto("https://www.testmuai.com/selenium-playground/simple-form-demo/");
+    // Locating ELements by role
+    //await page.pause();
+    // using get by title locator to click on selenium grid online link
+    ///await expect(page.getByTitle().toHaveText('Selenium Grid Online | Run Selenium Test On Cloud'));
+    await page.getByRole('button',{name:'Get Sum'}).click();
+
+    //Locating ELements by text
+
+    await expect(page.getByText('simple form demo')).toBeVisible();
+
+    await page.getByRole('link',{name:'Login'}).click();
+
+    //Locating Elements by Label
+    await page.getByLabel('Email Address').fill('sandeep@mail.com')
+    await page.getByPlaceholder('password').fill('Test@123')
+
+    await page.getByAltText('TestMu AI').click();
+
+    
+
+})
+
+
+test.only('Login to SauceDemo using test id attribute', async ({page})=>{
+
+await page.goto("https://www.saucedemo.com/");
+await expect(page).toHaveTitle("Swag Labs");
+await page.getByTestId('username').fill("standard_user");
+await page.getByTestId('password').fill("secret_sauce");
+await page.getByTestId('login-button').click();
+await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html")
 })
