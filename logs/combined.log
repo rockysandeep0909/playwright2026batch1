@@ -1,0 +1,14 @@
+2026-04-11 10:43:13 [INFO]: we just completed one simple login flow using playwright - Awesome
+2026-04-11 10:43:25 [INFO]: TC01 is completed
+2026-04-11 10:46:13 [INFO]: we just completed one simple login flow using playwright - Awesome
+2026-04-11 10:46:25 [INFO]: TC01 is completed
+2026-04-11 10:46:39 [INFO]: TC02 is completed
+2026-04-11 10:50:02 [INFO]: we just completed one simple login flow using playwright - Awesome
+2026-04-11 10:50:14 [WARN]: TC01 is completed
+2026-04-11 10:51:55 [WARN]: TC01 is completed
+2026-04-11 11:05:07 [INFO]: we just completed one simple login flow using playwright - Awesome
+2026-04-11 11:05:19 [INFO]: TC01 is completed
+2026-04-11 11:05:34 [WARN]: TC02 is completed
+2026-04-11 11:05:44 [ERROR]: Hover didnt happen properly
+2026-04-11 12:51:48 [INFO]: we just completed one simple login flow using playwright - Awesome
+2026-04-11 12:52:00 [INFO]: TC01 is completed

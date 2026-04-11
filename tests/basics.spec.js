@@ -1,14 +1,18 @@
 import {test,expect} from '@playwright/test';
+import 'dotenv/config';
+import logger from '../utils/logger';
+import { Logger } from 'winston';
 
-test('Login to SauceDemo', async ({page})=>{
+test('TC 01:Login to SauceDemo', async ({page})=>{
 
-await page.goto("https://www.saucedemo.com/");
+await page.goto(process.env.Sauce_BASE_URL);
 await expect(page).toHaveTitle("Swag Labs");
 await page.locator("//input[@id='user-name']").fill("standard_user");
 await page.locator("//input[@name='password']").fill("secret_sauce");
 await page.locator("//input[@name='login-button']").click();
 await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html")
-console.log("we just completed one simple login flow using playwright - Awesome")
+//console.log("we just completed one simple login flow using playwright - Awesome")
+logger.info("we just completed one simple login flow using playwright - Awesome")
 await page.waitForTimeout(5000);
 await expect(page.locator("//button[@data-test='add-to-cart-sauce-labs-backpack']")).toBeVisible();
 await page.locator("//button[@data-test='add-to-cart-sauce-labs-backpack']").click();
@@ -18,35 +22,39 @@ await page.waitForTimeout(2000);
 await page.goForward();
 await page.waitForTimeout(2000);
 await page.reload();
+
+//console.log("TC01 is completed")
+logger.info("TC01 is completed")
 })
 
 
-test('Login to amazon and click on sell', async ({page})=>{
+test('TC 02: Login to amazon and click on sell', async ({page})=>{
 
 await page.goto("https://www.amazon.in/");
 await page.locator("//a[text()='Sell']").click();
 
 await page.waitForTimeout(5000);
-
+logger.warn("TC02 is completed")
 })
 
 
 
-test('Paytm navigation', async ({page})=>{
+test('TC 03: Paytm navigation', async ({page})=>{
 
 await page.goto("https://paytm.com/");
 await page.pause();
 await page.locator("//li[text()='Ticket Booking']").hover();
+logger.error("Hover didnt happen properly")
 await page.locator("//span[text()='Sign In']").click();
 
-
+logger.error("TC03 is completed")
 
 })
 
 
 test('Selecting different dropdowns', async ({page})=>{
 
-await page.goto("https://www.saucedemo.com/");
+await page.goto(process.env.Sauce_BASE_URL);
 await expect(page).toHaveTitle("Swag Labs");
 await page.locator("//input[@id='user-name']").fill("standard_user");
 await page.locator("//input[@name='password']").fill("secret_sauce");
@@ -87,7 +95,7 @@ test("Visual testing for instagram", async ({page})=>{
 })
 
 test('Verify error message text', async ({ page }) => {
- await page.goto('https://www.saucedemo.com/');
+ await page.goto(process.env.Sauce_BASE_URL);
  await page.locator('#user-name').fill('standard_user'); // id attribute
  await page.locator('#password').fill('wrong_password');
  await page.locator('.submit-button').click(); // class attribute
@@ -98,7 +106,7 @@ test('Verify error message text', async ({ page }) => {
 
 // product count and css usage in script
 test('Verify products count', async ({ page }) => {
- await page.goto('https://www.saucedemo.com/');
+ await page.goto(process.env.Sauce_BASE_URL);
  await page.locator('#user-name').fill('standard_user');
  await page.locator('#password').fill('secret_sauce');
  await page.locator('#login-button').click();
@@ -108,7 +116,7 @@ test('Verify products count', async ({ page }) => {
 
 
 test('Soft assertion example', async ({ page }) => {
- await page.goto('https://www.saucedemo.com/');
+ await page.goto(process.env.Sauce_BASE_URL);
 
  await expect.soft(page).toHaveTitle('Swag Labs');
  await expect.soft(page.locator('.login_logo')).toHaveText('Swag Labs');
@@ -223,9 +231,9 @@ test("Handle simple form demo", async ({page})=>{
 })
 
 
-test.only('Login to SauceDemo using test id attribute', async ({page})=>{
+test('Login to SauceDemo using test id attribute', async ({page})=>{
 
-await page.goto("https://www.saucedemo.com/");
+await page.goto(process.env.Sauce_BASE_URL);
 await expect(page).toHaveTitle("Swag Labs");
 await page.getByTestId('username').fill("standard_user");
 await page.getByTestId('password').fill("secret_sauce");
