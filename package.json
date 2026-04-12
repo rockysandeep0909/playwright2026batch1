@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+
+    "alltest":"npx playwright test",
+    "smoke" :"npx playwright test --grep @Smoke"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.3.2"

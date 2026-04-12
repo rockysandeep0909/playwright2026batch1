@@ -3,7 +3,7 @@ import 'dotenv/config';
 import logger from '../utils/logger';
 import { Logger } from 'winston';
 
-test('TC 01:Login to SauceDemo', async ({page})=>{
+test('@Smoke TC 01:Login to SauceDemo', async ({page})=>{
 
 await page.goto(process.env.Sauce_BASE_URL);
 await expect(page).toHaveTitle("Swag Labs");
@@ -28,7 +28,7 @@ logger.info("TC01 is completed")
 })
 
 
-test('TC 02: Login to amazon and click on sell', async ({page})=>{
+test('@Smoke TC 02: Login to amazon and click on sell', async ({page})=>{
 
 await page.goto("https://www.amazon.in/");
 await page.locator("//a[text()='Sell']").click();
@@ -42,7 +42,7 @@ logger.warn("TC02 is completed")
 test('TC 03: Paytm navigation', async ({page})=>{
 
 await page.goto("https://paytm.com/");
-await page.pause();
+//await page.pause();
 await page.locator("//li[text()='Ticket Booking']").hover();
 logger.error("Hover didnt happen properly")
 await page.locator("//span[text()='Sign In']").click();
@@ -52,7 +52,7 @@ logger.error("TC03 is completed")
 })
 
 
-test('Selecting different dropdowns', async ({page})=>{
+test('@Regression TC 04: Selecting different dropdowns', async ({page})=>{
 
 await page.goto(process.env.Sauce_BASE_URL);
 await expect(page).toHaveTitle("Swag Labs");
@@ -75,7 +75,7 @@ await dropDown.selectOption("az");
 })
 
 
-test("File upload for heruko application ", async ({page})=>{
+test('TC 05: File upload for heruko application ', async ({page})=>{
 
     await page.goto("https://the-internet.herokuapp.com/upload");
     await page.locator("//input[@id='file-upload']").setInputFiles("C:\\Users\\Sandeep\\Desktop\\sample.txt");
@@ -86,7 +86,7 @@ test("File upload for heruko application ", async ({page})=>{
 
 })
 
-test("Visual testing for instagram", async ({page})=>{
+test('@Smoke TC 06: Visual testing for instagram', async ({page})=>{
 
 
     await page.goto("https://www.instagram.com/");
@@ -94,7 +94,7 @@ test("Visual testing for instagram", async ({page})=>{
     expect(await page.screenshot()).toMatchSnapshot("insta.png")
 })
 
-test('Verify error message text', async ({ page }) => {
+test('TC 07: Verify error message text', async ({ page }) => {
  await page.goto(process.env.Sauce_BASE_URL);
  await page.locator('#user-name').fill('standard_user'); // id attribute
  await page.locator('#password').fill('wrong_password');
@@ -105,7 +105,7 @@ test('Verify error message text', async ({ page }) => {
 });
 
 // product count and css usage in script
-test('Verify products count', async ({ page }) => {
+test('TC 08: Verify products count', async ({ page }) => {
  await page.goto(process.env.Sauce_BASE_URL);
  await page.locator('#user-name').fill('standard_user');
  await page.locator('#password').fill('secret_sauce');
@@ -115,7 +115,7 @@ test('Verify products count', async ({ page }) => {
 });
 
 
-test('Soft assertion example', async ({ page }) => {
+test('TC 09: Soft assertion example', async ({ page }) => {
  await page.goto(process.env.Sauce_BASE_URL);
 
  await expect.soft(page).toHaveTitle('Swag Labs');
@@ -127,7 +127,7 @@ test('Soft assertion example', async ({ page }) => {
 
 // launch sauce demo using browser fixture
 
-test("launch using browser fixtures", async ({browser})=>{
+test('TC 10: launch using browser fixtures', async ({browser})=>{
 
    let context=await browser.newContext();
    let page= await context.newPage();
@@ -140,7 +140,7 @@ test("launch using browser fixtures", async ({browser})=>{
 
 // to handle table using playwright 
 
-test("handling tables using playwright", async ({page})=>{
+test('@Regression TC 11: handling tables using playwright', async ({page})=>{
  
  await page.goto("https://demo.guru99.com/test/web-table-element.php");
  let rows=await page.locator("//tbody/tr").count();
@@ -161,7 +161,7 @@ test("handling tables using playwright", async ({page})=>{
 
 // test to handle javascripts 
 
-test("Handle JS alert", async ({page})=>{
+test('TC 12: Handle JS alert', async ({page})=>{
     await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
     
     
@@ -175,7 +175,7 @@ test("Handle JS alert", async ({page})=>{
 
 // test to handle js confirm alert in playwright 
 
-test("Handle JS confirm alert", async ({page})=>{
+test('TC 13: Handle JS confirm alert', async ({page})=>{
     await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
     
     
@@ -190,7 +190,7 @@ test("Handle JS confirm alert", async ({page})=>{
 
 
 // test to handle js prompt alert in playwright
-test("Handle JS prompt alert", async ({page})=>{
+test('TC 15: Handle JS prompt alert', async ({page})=>{
     await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
     
     
@@ -206,7 +206,7 @@ test("Handle JS prompt alert", async ({page})=>{
 
 // inbuild playwright locators for https://www.testmuai.com/selenium-playground/simple-form-demo/
 
-test("Handle simple form demo", async ({page})=>{
+test('TC 16: Handle simple form demo', async ({page})=>{
     await page.goto("https://www.testmuai.com/selenium-playground/simple-form-demo/");
     // Locating ELements by role
     //await page.pause();
@@ -231,7 +231,7 @@ test("Handle simple form demo", async ({page})=>{
 })
 
 
-test('Login to SauceDemo using test id attribute', async ({page})=>{
+test('TC 17: Login to SauceDemo using test id attribute', async ({page})=>{
 
 await page.goto(process.env.Sauce_BASE_URL);
 await expect(page).toHaveTitle("Swag Labs");

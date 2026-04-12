@@ -1,7 +1,6 @@
 import 'dotenv/config';
 
-class LoginPage{
-
+export class LoginPage {
 
 
 // Region 1
@@ -21,16 +20,26 @@ constructor(page){
        await this.page.goto(process.env.Sauce_BASE_URL);
       }
 
-      async validLogin(){
-       await this.username.fill("standard_user");
-       await this.password.fill("secret_sauce");
+      async validLogin(un,ps){
+       await this.username.fill(un);
+       await this.password.fill(ps);
        await this.loginButton.click();
 
       }
 
-    }
+     async enterUsername(){
+        await this.username.fill("standard_user");
+     }
 
-module.exports={LoginPage};
+      async enterPassword(){
+        await this.password.fill("secret_sauce");
+      }
+
+      async clickLoginButton(){
+        await this.loginButton.click();
+      }
+
+    }
 
 
 
