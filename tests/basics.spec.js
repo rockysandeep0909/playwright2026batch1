@@ -6,6 +6,7 @@ import { Logger } from 'winston';
 test('@Smoke TC 01:Login to SauceDemo', async ({page})=>{
 
 await page.goto(process.env.Sauce_BASE_URL);
+await page.pause();
 await expect(page).toHaveTitle("Swag Labs");
 await page.locator("//input[@id='user-name']").fill("standard_user");
 await page.locator("//input[@name='password']").fill("secret_sauce");
@@ -239,4 +240,68 @@ await page.getByTestId('username').fill("standard_user");
 await page.getByTestId('password').fill("secret_sauce");
 await page.getByTestId('login-button').click();
 await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html")
+})
+
+
+test('@paytm TC 18: Paytm multiple tabs example', async ({browser})=>{
+
+const paytmcontext=await browser.newContext();
+const page= await paytmcontext.newPage();
+
+await page.goto(process.env.paytmurl);
+await page.locator("//li[text()='Recharge & Bills']").hover();
+
+const mobileRechargeLink=await page.locator("//li[text()='Recharge & Bills']/..//a[text()='Mobile Recharge']");
+
+const [newPage]=await Promise.all([
+
+    paytmcontext.waitForEvent('page'),
+    mobileRechargeLink.click()
+])
+
+// this will come into picture only when a new tab is opened 
+await newPage.waitForLoadState();
+await newPage.locator("//label[normalize-space()='Postpaid']").click();
+
+
+logger.info("TC18 is completed")
+
+})
+
+
+
+test('admin and user interaction', async ({ browser }) => {
+  // Create two completely isolated "incognito" sessions
+  const adminContext = await browser.newContext();
+  const userContext = await browser.newContext();
+
+  // Create tabs in those sessions
+  const adminPage = await adminContext.newPage();
+  const userPage = await userContext.newPage();
+
+  // Admin performs an action
+  await adminPage.goto('https://www.instagram.com/');
+  
+  // User sees the result
+  await userPage.goto('https://paytm.com/');
+
+  // Clean up
+  await adminContext.close();
+  await userContext.close();
+});
+
+test('@abc handling http authentication', async ({browser})=>{
+
+const context=await browser.newContext({
+    httpCredentials:{
+        username:'admin',
+        password:'admin'
+    }
+});
+const page= await context.newPage();
+await page.goto("https://the-internet.herokuapp.com/basic_auth");
+await expect(page.locator("//h3/../p")).toHaveText("Congratulations! You must have the proper credentials.")
+
+
+
 })
