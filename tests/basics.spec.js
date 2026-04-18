@@ -243,7 +243,7 @@ await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html")
 })
 
 
-test('@paytm TC 18: Paytm multiple tabs example', async ({browser})=>{
+test('TC 18@paytm TC 18: Paytm multiple tabs example', async ({browser})=>{
 
 const paytmcontext=await browser.newContext();
 const page= await paytmcontext.newPage();
@@ -270,7 +270,7 @@ logger.info("TC18 is completed")
 
 
 
-test('admin and user interaction', async ({ browser }) => {
+test('TC 19@abc admin and user interaction', async ({ browser }) => {
   // Create two completely isolated "incognito" sessions
   const adminContext = await browser.newContext();
   const userContext = await browser.newContext();
@@ -290,7 +290,7 @@ test('admin and user interaction', async ({ browser }) => {
   await userContext.close();
 });
 
-test('@abc handling http authentication', async ({browser})=>{
+test('TC 20 @abc handling http authentication', async ({browser})=>{
 
 const context=await browser.newContext({
     httpCredentials:{
@@ -302,6 +302,24 @@ const page= await context.newPage();
 await page.goto("https://the-internet.herokuapp.com/basic_auth");
 await expect(page.locator("//h3/../p")).toHaveText("Congratulations! You must have the proper credentials.")
 
+
+
+})
+
+test('TC 21 File download', async ({page})=>{
+    await page.goto("https://www.selenium.dev/downloads/");
+
+    const [download]= await Promise.all([
+        page.waitForEvent('download'),
+        page.locator("//div[@class='row justify-content-center px-5 pb-5']//div[3]//div[1]//div[2]//p[2]//a[1]").click()
+    ])
+
+    // save downloaded file to desired location
+   const downloadPath='C:\\Users\\Sandeep\\Desktop\\Codetobepushed\\downloadedfiles\\'+ download.suggestedFilename();
+
+   await download.saveAs(downloadPath);
+   console.log("Download saved to "+ downloadPath)
+   
 
 
 })
