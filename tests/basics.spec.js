@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect,request} from '@playwright/test';
 import 'dotenv/config';
 import logger from '../utils/logger';
 import { Logger } from 'winston';
@@ -323,3 +323,37 @@ test('TC 21 File download', async ({page})=>{
 
 
 })
+
+test('@keyboard TC 22 keyboard events', async ({page})=>{
+    await page.goto("https://www.saucedemo.com/");
+    const UsernameVisible =await page.locator("#user-name").getAttribute('placeholder') 
+    const UsernameTextField=await page.locator("#user-name").fill("standard_user");
+
+    const enteredTxt=await page.locator("#user-name").inputValue();
+    const swaglabstext=await page.locator("//div[@class='login_logo']").textContent();
+
+    console.log(UsernameVisible)
+    console.log(enteredTxt)
+    console.log(swaglabstext)
+  
+    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.press('Backspace')
+    await page.keyboard.press('Delete')
+
+    await page.keyboard.type('D')
+    await page.keyboard.press('Tab')
+    await page.waitForTimeout(4000)
+    await page.keyboard.press('Enter')
+
+})
+
+// to handle api testing using playwright 
+
+test('TC 23: API testing using playwright', async ({page})=>{
+        const apicontext = await request.newContext();
+        const response= (await apicontext).get("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41")
+        console.log((await response).status());
+console.log((await response).statusText());
+})
+
