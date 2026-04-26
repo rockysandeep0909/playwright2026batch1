@@ -358,3 +358,41 @@ test('TC 23: API testing using playwright', async ({page})=>{
         console.log((await response).statusText());
 })
 
+
+test('@Frame TC 24 - Handling Iframes', async ({ page }) => {
+    await page.goto("https://the-internet.herokuapp.com/iframe");
+    
+    // 1. Close the modal if it exists (use a more resilient selector)
+    const closeButton = page.locator('div[aria-label="Close"]');
+    if (await closeButton.isVisible()) {
+        await closeButton.click();
+    }
+
+    // 2. Define the Frame and Editor locators
+    const iframe = page.frameLocator("#mce_0_ifr");
+    const editorBody = iframe.locator("#tinymce");
+
+    // 3. FIX: Ensure the editor is ready and editable
+    // We click it first, then use evaluate to clear it, then type.
+
+    
+    // This bypasses the strict 'fill' check if the library is still 'initializing'
+    await editorBody.evaluate(node => node.setAttribute('contenteditable', 'true'));
+    await page.waitForTimeout(3000); // Wait a bit for the editor to be fully ready
+    await editorBody.click();
+    await editorBody.clear();
+    await editorBody.fill("This is handling iframe using playwright");
+
+    // 4. Verify the result
+    await expect(editorBody).toHaveText("This is handling iframe using playwright");
+});
+
+test('@Scroll TC 25 - Handling scrolling in playwright', async ({ page }) => {
+    await page.goto("https://www.selenium.dev/downloads/");
+    await page.waitForTimeout(4000)
+    await page.evaluate(()=> window.scrollBy(0,400));
+    await page.waitForTimeout(4000)
+     await page.evaluate(()=> window.scrollBy(0,400));
+await page.waitForTimeout(4000)
+await page.evaluate(()=> window.scrollBy(0,-400));
+});
