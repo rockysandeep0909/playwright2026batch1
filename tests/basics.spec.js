@@ -350,10 +350,11 @@ test('@keyboard TC 22 keyboard events', async ({page})=>{
 
 // to handle api testing using playwright 
 
+//CRUD - Create , Read , Update , Delete
 test('TC 23: API testing using playwright', async ({page})=>{
         const apicontext = await request.newContext();
         const response= (await apicontext).get("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41")
         console.log((await response).status());
-console.log((await response).statusText());
+        console.log((await response).statusText());
 })
 

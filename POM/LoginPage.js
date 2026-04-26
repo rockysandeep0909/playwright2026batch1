@@ -27,12 +27,12 @@ constructor(page){
 
       }
 
-     async enterUsername(){
-        await this.username.fill("standard_user");
+     async enterUsername(username){
+        await this.username.fill(username);
      }
 
-      async enterPassword(){
-        await this.password.fill("secret_sauce");
+      async enterPassword(password){
+        await this.password.fill(password);
       }
 
       async clickLoginButton(){

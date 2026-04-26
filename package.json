@@ -4,16 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-
-    "alltest":"npx playwright test",
-    "smoke" :"npx playwright test --grep @Smoke",
-    "regression" :"npx playwright test --grep @Regression"
+    "alltest": "npx playwright test",
+    "smoke": "npx playwright test --grep @Smoke",
+    "regression": "npx playwright test --grep @Regression"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@cucumber/cucumber": "^12.8.1",
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.3.2"
   },
