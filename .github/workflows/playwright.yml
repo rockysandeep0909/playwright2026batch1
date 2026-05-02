@@ -6,7 +6,9 @@ on:
     branches: [ main, master ]
 
   schedule:
-    - cron: '0 6 * * *' # Runs every day at midnight  
+    - cron: '25 6 * * *' # Runs every day at midnight
+  workflow_dispatch: # Allows manual triggering for testing
+
 jobs:
   test:
     timeout-minutes: 60
