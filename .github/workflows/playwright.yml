@@ -6,7 +6,7 @@ on:
     branches: [ main, master ]
 
   schedule:
-    - cron: '52 5 * * *' # Runs every day at midnight  
+    - cron: '0 6 * * *' # Runs every day at midnight  
 jobs:
   test:
     timeout-minutes: 60
