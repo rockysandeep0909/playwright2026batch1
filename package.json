@@ -15,7 +15,8 @@
   "devDependencies": {
     "@cucumber/cucumber": "^12.8.1",
     "@playwright/test": "^1.58.2",
-    "@types/node": "^25.3.2"
+    "@types/node": "^25.3.2",
+    "allure-playwright": "^3.7.1"
   },
   "dependencies": {
     "dotenv": "^17.4.0",

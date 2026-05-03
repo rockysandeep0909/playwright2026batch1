@@ -2,6 +2,19 @@ import {test,expect,request} from '@playwright/test';
 import 'dotenv/config';
 import logger from '../utils/logger';
 import { Logger } from 'winston';
+import userData from '../test-data/userData.json' assert { type: 'json' };
+import DropDownUtil from '../utils/dropdownUtil.js';
+
+test.beforeAll(()=>{
+    logger.info("Test suite execution started")
+})
+
+
+test.afterAll(()=>{
+    logger.info("Test suite execution completed")
+})
+
+
 
 test('@Smoke TC 01:Login to SauceDemo', async ({page})=>{
 
@@ -395,4 +408,38 @@ test('@Scroll TC 25 - Handling scrolling in playwright', async ({ page }) => {
      await page.evaluate(()=> window.scrollBy(0,400));
 await page.waitForTimeout(4000)
 await page.evaluate(()=> window.scrollBy(0,-400));
+});
+
+test('TC 26: Login using Json test data', async ({ page }) => {
+    await page.goto(process.env.Sauce_BASE_URL);
+    await expect(page).toHaveTitle("Swag Labs");
+    await page.locator("#user-name").fill(userData.validUser.username);
+    await page.locator("#password").fill(userData.validUser.password);
+    await page.locator("//input[@name='login-button']").click();
+
+})
+test.only('@dropdown TC 27: Using dropdown utility on Sauce Demo', async ({ page }) => {
+    await page.goto(process.env.Sauce_BASE_URL);
+    await expect(page).toHaveTitle("Swag Labs");
+    await page.locator("#user-name").fill("standard_user");
+    await page.locator("#password").fill("secret_sauce");
+    await page.locator("//input[@name='login-button']").click();
+    await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
+
+    const dropdownUtil = new DropDownUtil();
+    const dropDown = page.locator("//select[@data-test='product-sort-container']");
+
+    await dropdownUtil.selectDropdownOption(dropDown, "hilo");
+    await page.waitForTimeout(2000);
+
+    await dropdownUtil.selectDropdownOption(dropDown, "lohi");
+    await page.waitForTimeout(2000);
+
+    await dropdownUtil.selectDropdownOption(dropDown, "za");
+    await page.waitForTimeout(2000);
+
+    await dropdownUtil.selectDropdownOption(dropDown, "az");
+    await page.waitForTimeout(2000);
+
+    logger.info("TC 26 completed using dropdown utility");
 });
