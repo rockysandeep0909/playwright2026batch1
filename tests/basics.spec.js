@@ -443,3 +443,25 @@ test.only('@dropdown TC 27: Using dropdown utility on Sauce Demo', async ({ page
 
     logger.info("TC 26 completed using dropdown utility");
 });
+
+test('@auto TC 27: Handling autosuggest dropdown in playwrigth ', async ({ page }) => {
+    await page.goto("https://www.wikipedia.org/");
+    const searchBox=page.locator("#searchInput");
+    await searchBox.fill("gen ai");
+    await page.waitForTimeout(3000);
+    const autoSuggests=page.locator("//div[@class='suggestions-dropdown']/a");
+    const count=await autoSuggests.count();
+    console.log("Autosuggest count is " + count);
+    const expectedtext="Generative AI";
+    for(let i=0;i<count;i++){
+        const text=await autoSuggests.nth(i).textContent();
+        console.log(text);
+        if(text.trim()===expectedtext){
+            await autoSuggests.nth(i).click();
+            break;
+        }
+    }
+    
+    await page.waitForTimeout(5000);
+
+})
